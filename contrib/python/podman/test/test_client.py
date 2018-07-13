@@ -23,9 +23,8 @@ class TestClient(unittest.TestCase):
 
         mock_ping.assert_called_once()
 
-    @patch('os.path.isfile', return_value=True)
     @patch('podman.libs.system.System.ping', return_value=True)
-    def test_remote(self, mock_ping, mock_isfile):
+    def test_remote(self, mock_ping):
         p = Client(
             uri='unix:/run/podman',
             interface='io.projectatomic.podman',
@@ -34,4 +33,3 @@ class TestClient(unittest.TestCase):
 
         self.assertIsInstance(p._client, BaseClient)
         mock_ping.assert_called_once()
-        mock_isfile.assert_called_once()
